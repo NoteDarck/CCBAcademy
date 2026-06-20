@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <base href="../../">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCB Estudos | Teoria Musical</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .aula-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .aula-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+        }
+        .aula-header h1 { color: var(--gold); margin-bottom: 10px; }
+        .video-placeholder {
+            background: #1a1a2e;
+            border-radius: var(--radius);
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--white);
+            margin: 20px 0;
+        }
+        .video-placeholder .play {
+            font-size: 60px;
+            cursor: pointer;
+        }
+        .conteudo-aula {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+        .conteudo-aula h2 { color: var(--primary); margin: 20px 0 10px; }
+        .conteudo-aula ul { padding-left: 20px; }
+        .conteudo-aula ul li { margin-bottom: 8px; }
+        .exercicio-box {
+            background: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--gold);
+            margin: 20px 0;
+        }
+        .btn-voltar {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo"><span>CCB</span> Estudos</div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="pages/index.html">Início</a></li>
+                <li><a href="pages/simulados.html">Simulados</a></li>
+                <li><a href="pages/estudos.html" class="active">Estudos</a></li>
+                <li><a href="pages/instrumentos.html">Instrumentos</a></li>
+                <li><a href="pages/area-aluno.html">Área do Aluno</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="aula-container">
+        <div class="aula-header">
+            <h1>🎵 Teoria Musical</h1>
+            <p>Aprenda os fundamentos da música para ler e interpretar partituras com confiança.</p>
+        </div>
+
+        <!-- Vídeo/Aula -->
+        <div class="video-placeholder">
+            <div class="play">▶</div>
+            <h3 style="margin-top:15px;">Aula 1: Introdução à Teoria Musical</h3>
+            <p style="opacity:0.7;">Clique para assistir (vídeo em breve)</p>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="conteudo-aula">
+            <h2>📖 O que você vai aprender:</h2>
+            <ul>
+                <li>🎼 As claves: Sol, Fá e Dó</li>
+                <li>🎵 Notas musicais: Dó, Ré, Mi, Fá, Sol, Lá, Si</li>
+                <li>⏱️ Figuras musicais: Semibreve, Mínima, Semínima, Colcheia</li>
+                <li>📏 Compassos: Binário, Ternário, Quaternário</li>
+                <li>🔄 Sinais de repetição e dinâmica</li>
+            </ul>
+
+            <div class="exercicio-box">
+                <h3>✏️ Exercício Prático</h3>
+                <p>Identifique as notas na pauta abaixo e escreva seus nomes:</p>
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0; text-align: center; border: 2px dashed #ccc;">
+                    🎼 <span style="font-size:24px;">♩ ♪ ♫ ♬</span>
+                    <br><span style="color: var(--gray); font-size:14px;">(Pauta interativa em breve)</span>
+                </div>
+                <a href="#" class="btn btn-outline" style="font-size:14px;">📥 Baixar PDF do Exercício</a>
+            </div>
+
+            <h2>📚 Materiais Complementares</h2>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="#" class="btn btn-outline" style="font-size:14px;">📄 Apostila Teoria Musical</a>
+                <a href="#" class="btn btn-outline" style="font-size:14px;">🎵 Exercícios de Notas</a>
+                <a href="#" class="btn btn-outline" style="font-size:14px;">📊 Tabela de Compassos</a>
+            </div>
+        </div>
+
+        <a href="pages/estudos.html" class="btn btn-outline btn-voltar">⬅ Voltar para Estudos</a>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div>
+                <h4>CCB Estudos</h4>
+                <p style="opacity:0.7; font-size:14px;">Plataforma de estudos para membros da Congregação Cristã no Brasil.</p>
+            </div>
+            <div>
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="pages/simulados.html">Simulados</a></li>
+                    <li><a href="pages/estudos.html">Estudos</a></li>
+                    <li><a href="pages/instrumentos.html">Instrumentos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="#">suporte@ccbestudos.com</a></li>
+                    <li><a href="#">(11) 99999-9999</a></li>
+                </ul>
+            </div>
+            <div class="copy">&copy; 2026 CCB Estudos. Todos os direitos reservados.</div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

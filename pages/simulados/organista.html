@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <base href="../../">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCB Estudos | Exame para Organistas</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- MESMO CSS - COPIAR O STYLE DO teorico.html -->
+    <style>
+        /* Copiar todo o style do teorico.html aqui */
+        .simulado-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .simulado-header { background: var(--primary); color: var(--white); padding: 20px 30px; border-radius: var(--radius); margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .simulado-header h2 { margin: 0; font-size: 20px; }
+        .simulado-header .timer { font-size: 24px; font-weight: bold; color: var(--gold); }
+        #tela-inicial { text-align: center; padding: 40px 20px; }
+        #tela-inicial .icon { font-size: 60px; margin-bottom: 15px; }
+        #tela-inicial h1 { color: var(--primary); margin-bottom: 10px; }
+        #tela-inicial .info { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 30px 0; }
+        #tela-inicial .info-item { background: var(--gray-light); padding: 15px; border-radius: var(--radius); }
+        #tela-inicial .info-item strong { display: block; color: var(--primary); }
+        #tela-questoes, #tela-resultado { display: none; }
+        .progress-info { display: flex; justify-content: space-between; margin-bottom: 15px; color: var(--gray); font-size: 14px; }
+        .pergunta { font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 25px; line-height: 1.4; }
+        .alternativas { display: flex; flex-direction: column; gap: 12px; }
+        .alternativa-btn { background: var(--white); border: 2px solid #e0e0e0; border-radius: var(--radius); padding: 15px 20px; font-size: 16px; cursor: pointer; transition: all 0.3s; text-align: left; display: flex; align-items: center; gap: 12px; }
+        .alternativa-btn:hover { border-color: var(--gold); transform: translateX(5px); }
+        .alternativa-btn .letra { background: var(--gray-light); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); }
+        .navegacao { display: flex; justify-content: space-between; margin-top: 25px; flex-wrap: wrap; gap: 10px; }
+        .btn-finalizar { background: #dc3545; color: var(--white); }
+        .btn-finalizar:hover { background: #c82333; }
+        .resultado-box { text-align: center; padding: 20px; }
+        .resultado-box .score { font-size: 48px; font-weight: bold; color: var(--primary); }
+        .resultado-box .score span { color: var(--gold); }
+        .resultado-box .status { font-size: 28px; font-weight: bold; margin: 15px 0; }
+        .revisao-questoes { margin-top: 30px; max-height: 400px; overflow-y: auto; background: var(--white); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        .revisao-item { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .revisao-item:last-child { border-bottom: none; }
+        @media (max-width: 768px) { .simulado-header { flex-direction: column; gap: 10px; text-align: center; } .pergunta { font-size: 17px; } .alternativa-btn { font-size: 14px; padding: 12px 15px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo"><span>CCB</span> Estudos</div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="pages/index.html">Início</a></li>
+                <li><a href="pages/simulados.html" class="active">Simulados</a></li>
+                <li><a href="pages/estudos.html">Estudos</a></li>
+                <li><a href="pages/instrumentos.html">Instrumentos</a></li>
+                <li><a href="pages/area-aluno.html">Área do Aluno</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="simulado-container">
+        <div class="simulado-header">
+            <h2 class="simulado-tipo">🎹 Exame para Organistas</h2>
+            <div class="timer" id="timer">60:00</div>
+        </div>
+
+        <div id="tela-inicial">
+            <div class="icon">🎹</div>
+            <h1>Exame para Organistas</h1>
+            <p>Teste seus conhecimentos em harmonia, ritmo e técnica ao órgão.</p>
+            <div class="info">
+                <div class="info-item"><strong>10 Questões</strong> Aleatórias</div>
+                <div class="info-item"><strong>1 Hora</strong> Para finalizar</div>
+                <div class="info-item"><strong>70%</strong> Para aprovação</div>
+            </div>
+            <button class="btn btn-primary" onclick="iniciarSimulado('organista')">▶ Iniciar Simulado</button>
+        </div>
+
+        <div id="tela-questoes">
+            <div class="progress-info">
+                <span id="progresso">Questão 1 de 10</span>
+                <span id="respondidas">0 respondidas</span>
+            </div>
+            <div class="pergunta" id="pergunta"></div>
+            <div class="alternativas" id="alternativas"></div>
+            <div class="navegacao">
+                <button class="btn btn-outline" id="btn-anterior" onclick="questaoAnterior()" style="display:none;">◀ Anterior</button>
+                <div>
+                    <button class="btn btn-outline" onclick="finalizarSimulado()" style="background:#dc3545; color:white; border-color:#dc3545;">Finalizar</button>
+                    <button class="btn btn-primary" onclick="proximaQuestao()">Próxima ▶</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tela-resultado">
+            <div class="resultado-box">
+                <h2>📊 Resultado</h2>
+                <div class="score"><span id="resultado-acertos">0/0</span></div>
+                <div class="status" id="resultado-status">✅ APROVADO!</div>
+                <div style="font-size:18px; color:var(--gray);">Porcentagem: <strong id="resultado-porcentagem">0%</strong></div>
+                <div style="margin-top: 25px; display: flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="window.location.reload()">🔄 Refazer</button>
+                    <button class="btn btn-outline" onclick="voltarSimulados()">📋 Voltar</button>
+                </div>
+            </div>
+            <h3 style="margin-top:20px;">📝 Revisão das Questões</h3>
+            <div class="revisao-questoes" id="revisao-questoes"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div>
+                <h4>CCB Estudos</h4>
+                <p style="opacity:0.7; font-size:14px;">Plataforma de estudos para membros da Congregação Cristã no Brasil.</p>
+            </div>
+            <div>
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="pages/simulados.html">Simulados</a></li>
+                    <li><a href="pages/estudos.html">Estudos</a></li>
+                    <li><a href="pages/instrumentos.html">Instrumentos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="#">suporte@ccbestudos.com</a></li>
+                    <li><a href="#">(11) 99999-9999</a></li>
+                </ul>
+            </div>
+            <div class="copy">&copy; 2026 CCB Estudos. Todos os direitos reservados.</div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/questoes.js"></script>
+    <script src="js/simulados.js"></script>
+</body>
+</html>
